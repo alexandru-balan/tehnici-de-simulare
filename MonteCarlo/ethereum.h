@@ -9,10 +9,6 @@ class Ethereum : public CryptoCoin
 {
 public:
     Ethereum();
-    Ethereum(double value, double mod_rate);
-    double getValue() override;
-    double getModRate() override;
-    void setModRate(double mod_rate) override;
 };
 
 #endif // ETHEREUM_H

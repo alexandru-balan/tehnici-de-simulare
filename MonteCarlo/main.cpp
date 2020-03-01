@@ -1,13 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "ethereum.h"
-#include "bitcoin.h"
+#include <QQuickView>
+#include "cryptocoin.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+
+    qmlRegisterType<CryptoCoin>("cryptocoin.monte.carlo", 1, 0, "CryptoCoin");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -18,8 +20,7 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
-    Ethereum eth(225.71, 3);
-    Bitcoin btc(8043.3487, 4.685);
+
 
     return app.exec();
 }

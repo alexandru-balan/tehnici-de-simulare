@@ -7,12 +7,10 @@ using namespace std;
 
 class Bitcoin : public CryptoCoin
 {
+    Q_OBJECT
+
 public:
     Bitcoin();
-    Bitcoin(double value, double mod_rate);
-    double getValue() override;
-    double getModRate() override;
-    void setModRate(double mod_rate) override;
 };
 
 #endif // BITCOIN_H

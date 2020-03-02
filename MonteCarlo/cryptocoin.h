@@ -20,6 +20,7 @@ class CryptoCoin : public QObject
     Q_PROPERTY(double value_in_usd READ value_in_usd WRITE setValue_in_usd NOTIFY value_in_usdChanged)
     Q_PROPERTY(double mod_rate READ mod_rate WRITE setMod_rate NOTIFY mod_rateChanged)
     Q_PROPERTY(double final_sum READ final_sum WRITE setFinal_sum NOTIFY final_sumChanged)
+    Q_PROPERTY(double investment READ investment WRITE setInvestment NOTIFY investmentChanged)
 
 private:
     QString _name;
@@ -28,7 +29,7 @@ private:
     double _mod_rate;
     double _final_sum;
 
-    static double investment;
+    double _investment;
 
     double surge_prob = 50;
     double plumet_prob = 50;
@@ -54,6 +55,9 @@ public:
     double final_sum();
     void setFinal_sum(const double& sum);
 
+    double investment();
+    void setInvestment(const double& inv);
+
     Q_INVOKABLE void simulate(int number_of_days);
 
 signals:
@@ -62,6 +66,7 @@ signals:
     void value_in_usdChanged();
     void mod_rateChanged();
     void final_sumChanged();
+    void investmentChanged();
 };
 
 #endif // CRYPTOCOIN_H

@@ -2,6 +2,7 @@
 
 CryptoCoin::CryptoCoin() : _name("Unknown"), _abbreviation("UNKW"), _value_in_usd(0.0), _mod_rate(0.0) {
     actual_mod_rate = _mod_rate;
+    _investment = 1847.00; // valoare default
 }
 
 CryptoCoin::~CryptoCoin(){
@@ -59,6 +60,15 @@ void CryptoCoin::setFinal_sum(const double &sum) {
     emit final_sumChanged();
 }
 
+double CryptoCoin::investment() {
+    return _investment;
+}
+
+void CryptoCoin::setInvestment(const double& inv) {
+    _investment = inv;
+    emit investmentChanged();
+}
+
 // Functia se va ocupa de simularea valorii monedei pe un interval de zile dat
 /*
     Presupuneri:
@@ -80,7 +90,7 @@ void CryptoCoin::simulate(int number_of_days) {
     // Distributia de numere reale pentru care o sa folosim generatorul
     uniform_real_distribution<double> distribution(1.000,100.000);
 
-    this->nr_of_coins = investment / this->_value_in_usd;
+    this->nr_of_coins = _investment / this->_value_in_usd;
     // Rutina principala a simularii
     for (int i = 0; i < number_of_days; ++i) {
         // La inceputul simularii calculam numarul de monede echivalente cu investitia utilizatorului
@@ -116,6 +126,5 @@ void CryptoCoin::simulate(int number_of_days) {
 
     // Afisam valoarea monedelor cumparate dupa simulare
     cout << "ROI -- " << this->_name.toUtf8().toStdString() << " = " << this->nr_of_coins * this->_value_in_usd << endl;
+    this->_final_sum = this->nr_of_coins * this->_value_in_usd;
 }
-
-double CryptoCoin::investment = 1874.000;

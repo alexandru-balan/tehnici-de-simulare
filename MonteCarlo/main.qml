@@ -47,8 +47,58 @@ Window {
             height: Window.height
             transformOrigin: Item.Center
 
+            // Coloana cu informatii generale initiale
+            ColumnLayout {
+                id: initial_info
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                RowLayout {
+                    id: investment_row
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Text {
+                        id: investment_label
+                        text: qsTr("Investitie: ")
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 16
+                    }
+
+                    Rectangle {
+                        id: rectangle
+                        height: investment_label.height
+                        color: "#00000000"
+                        width: investment_label.width + 30
+                        border.width: 1
+                        radius: 5
+                        Layout.alignment: Qt.AlignCenter
+
+                        TextInput {
+                            id: investment_value
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: ethereum.investment
+                            font.family: "DejaVu Sans Mono"
+                            font.italic: true
+                            font.pointSize: 16
+                            inputMask:"0000.000"
+                            onTextEdited: {
+                                ethereum.investment = investment_value.text
+                                bitcoin.investment = investment_value.text
+                            }
+                            Layout.alignment: Qt.AlignCenter
+                        }
+                    }
+                }
+            }
+
             // Coloana pentru Ethereum
             ColumnLayout {
+                id: ethereum_column
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -94,7 +144,7 @@ Window {
                     }
 
                     Rectangle {
-                        id: rectangle
+                        id: rectangle_investment
                         height: crypto_1_value.height
                         color: "#00000000"
                         width: crypto_1_value.width + 30
@@ -145,6 +195,7 @@ Window {
 
                         TextInput {
                             id: crypto_1_mod
+                            text: ethereum.mod_rate
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             font.family: "DejaVu Sans Mono"
@@ -159,11 +210,26 @@ Window {
                     }
 
                 }
+
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Text {
+                        id: final_sum_ethereum
+                        text: qsTr("Suma initiala = " + ethereum.investment)
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 16
+                    }
+                }
             }
 
             // Coloana pentru Bitcoin
             // Randurile din aceasta coloana sunt identice cu cele pentru Ethereum
             ColumnLayout {
+                id: bitcoin_column
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -257,6 +323,7 @@ Window {
 
                         TextInput {
                             id: crypto_2_mod
+                            text: bitcoin.mod_rate
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             font.family: "DejaVu Sans Mono"
@@ -271,10 +338,25 @@ Window {
                     }
 
                 }
+
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Text {
+                        id: final_sum_bitcoin
+                        text: qsTr("Suma initiala = " + bitcoin.investment)
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 16
+                    }
+                }
             }
 
             // Coloana contine butonul ce porneste simularea
             ColumnLayout {
+                id: start_simulation_column
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -292,8 +374,11 @@ Window {
                         font.pointSize: 14
 
                         onClicked: {
-                            ethereum.simulate(365*5);
-                            bitcoin.simulate(365*5);
+                            ethereum.simulate(10000);
+                            bitcoin.simulate(10000);
+
+                            final_sum_ethereum.text = qsTr("Suma finala = " + ethereum.final_sum)
+                            final_sum_bitcoin.text = qsTr("Suma finala = " + bitcoin.final_sum)
                         }
                     }
                 }

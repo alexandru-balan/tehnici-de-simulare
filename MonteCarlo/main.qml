@@ -60,39 +60,36 @@ Window {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Text {
+                    Label {
                         id: investment_label
                         text: qsTr("Investitie: ")
+                        textFormat: Text.AutoText
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
                         font.family: "DejaVu Sans Mono"
                         font.italic: true
                         font.pointSize: 16
                     }
 
-                    Rectangle {
-                        id: rectangle_inv
-                        height: investment_label.height
-                        color: "#00000000"
-                        width: investment_label.width + 30
-                        border.width: 1
-                        radius: 5
-                        Layout.alignment: Qt.AlignCenter
 
-                        TextInput {
-                            id: investment_value
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: ethereum.investment
-                            font.family: "DejaVu Sans Mono"
-                            font.italic: true
-                            font.pointSize: 16
-                            inputMask:"0000.000"
-                            onTextEdited: {
-                                ethereum.investment = investment_value.text
-                                bitcoin.investment = investment_value.text
-                            }
-                            Layout.alignment: Qt.AlignCenter
+
+                    TextField {
+                        id: investment_value
+                        clip: true
+                        placeholderText: ethereum.investment
+                        placeholderTextColor: "#888687"
+                        renderType: Text.NativeRendering
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 16
+                        onTextEdited: {
+                            ethereum.investment = investment_value.text
+                            bitcoin.investment = investment_value.text
                         }
+                        Layout.alignment: Qt.AlignCenter
                     }
+
                 }
             }
 
@@ -129,13 +126,13 @@ Window {
                 }
 
                 // A doua linie contine o casuta cu ajutorul careia se poate modifica valoarea monedei
-                // Clasa din C++ este legata de TextInput-ul de pe acest rand
+                // Clasa din C++ este legata de TextField-ul de pe acest rand
                 RowLayout {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Text {
+                    Label {
                         id: crypto_1_value_label
                         text: qsTr("1 " + ethereum.abbreviation + " = $")
                         font.family: "DejaVu Sans Mono"
@@ -143,30 +140,23 @@ Window {
                         font.pointSize: 18
                     }
 
-                    Rectangle {
-                        id: rectangle_investment
-                        height: crypto_1_value.height
-                        color: "#00000000"
-                        width: crypto_1_value.width + 30
-                        border.width: 1
-                        radius: 5
-                        Layout.alignment: Qt.AlignCenter
 
-                        TextInput {
-                            id: crypto_1_value
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: ethereum.value_in_usd
-                            font.family: "DejaVu Sans Mono"
-                            font.italic: true
-                            font.pointSize: 18
-                            inputMask:"0000.000"
-                            onTextEdited: {
-                                ethereum.value_in_usd = crypto_1_value.text
-                            }
-                            Layout.alignment: Qt.AlignCenter
+                    TextField {
+                        id: crypto_1_value
+                        clip: true
+                        placeholderText: ethereum.value_in_usd
+                        placeholderTextColor: "#888687"
+                        horizontalAlignment: Text.AlignHCenter
+                        renderType: Text.NativeRendering
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 18
+                        onTextEdited: {
+                            ethereum.value_in_usd = crypto_1_value.text
                         }
+                        Layout.alignment: Qt.AlignCenter
                     }
+
 
                 }
 
@@ -176,7 +166,7 @@ Window {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Text {
+                    Label {
                         id: crypto_1_mod_label
                         text: qsTr("Probabilitatea sa se modifice pana maine = ")
                         font.family: "DejaVu Sans Mono"
@@ -184,30 +174,24 @@ Window {
                         font.pointSize: 16
                     }
 
-                    Rectangle {
-                        id: rectangle3
-                        height: crypto_1_mod.height
-                        color: "#00000000"
-                        width: crypto_1_mod.width + 30
-                        border.width: 1
-                        radius: 5
-                        Layout.alignment: Qt.AlignCenter
 
-                        TextInput {
-                            id: crypto_1_mod
-                            text: ethereum.mod_rate
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            font.family: "DejaVu Sans Mono"
-                            font.italic: true
-                            font.pointSize: 16
-                            inputMask:"00.000"
-                            onTextEdited: {
-                                ethereum.mod_rate = crypto_1_mod.text
-                            }
-                            Layout.alignment: Qt.AlignCenter
+
+                    TextField {
+                        id: crypto_1_mod
+                        clip: true
+                        placeholderText: ethereum.mod_rate
+                        placeholderTextColor: "#888687"
+                        horizontalAlignment: Text.AlignHCenter
+                        renderType: Text.NativeRendering
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 16
+                        onTextEdited: {
+                            ethereum.mod_rate = crypto_1_mod.text
                         }
+                        Layout.alignment: Qt.AlignCenter
                     }
+
 
                 }
 
@@ -264,7 +248,7 @@ Window {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Text {
+                    Label {
                         id: crypto_2_value_label
                         text: qsTr("1 " + bitcoin.abbreviation + " = $")
                         font.family: "DejaVu Sans Mono"
@@ -272,30 +256,24 @@ Window {
                         font.pointSize: 18
                     }
 
-                    Rectangle {
-                        id: rectangle2
-                        height: crypto_2_value.height
-                        color: "#00000000"
-                        width: crypto_2_value.width + 30
-                        border.width: 1
-                        radius: 5
-                        Layout.alignment: Qt.AlignCenter
 
-                        TextInput {
-                            id: crypto_2_value
-                            text: bitcoin.value_in_usd
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            font.family: "DejaVu Sans Mono"
-                            font.italic: true
-                            font.pointSize: 18
-                            inputMask:"0000.000"
-                            onTextEdited: {
-                                bitcoin.value_in_usd = crypto_2_value.text
-                            }
-                            Layout.alignment: Qt.AlignCenter
+
+                    TextField {
+                        id: crypto_2_value
+                        clip: true
+                        placeholderText: bitcoin.value_in_usd
+                        placeholderTextColor: "#888687"
+                        renderType: Text.NativeRendering
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 18
+                        onTextEdited: {
+                            bitcoin.value_in_usd = crypto_2_value.text
                         }
+                        Layout.alignment: Qt.AlignCenter
                     }
+
 
                 }
 
@@ -304,7 +282,7 @@ Window {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    Text {
+                    Label {
                         id: crypto_2_mod_label
                         text: qsTr("Probabilitatea sa se modifice pana maine = ")
                         font.family: "DejaVu Sans Mono"
@@ -312,30 +290,24 @@ Window {
                         font.pointSize: 16
                     }
 
-                    Rectangle {
-                        id: rectangle4
-                        height: crypto_2_mod.height
-                        color: "#00000000"
-                        width: crypto_2_mod.width + 30
-                        border.width: 1
-                        radius: 5
-                        Layout.alignment: Qt.AlignCenter
 
-                        TextInput {
-                            id: crypto_2_mod
-                            text: bitcoin.mod_rate
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-                            font.family: "DejaVu Sans Mono"
-                            font.italic: true
-                            font.pointSize: 16
-                            inputMask:"00.000"
-                            onTextEdited: {
-                                bitcoin.mod_rate = crypto_2_mod.text
-                            }
-                            Layout.alignment: Qt.AlignCenter
+
+                    TextField {
+                        id: crypto_2_mod
+                        clip: true
+                        placeholderText: bitcoin.mod_rate
+                        placeholderTextColor: "#888687"
+                        renderType: Text.NativeRendering
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 16
+                        onTextEdited: {
+                            bitcoin.mod_rate = crypto_2_mod.text
                         }
+                        Layout.alignment: Qt.AlignCenter
                     }
+
 
                 }
 
@@ -376,6 +348,9 @@ Window {
                         onClicked: {
                             ethereum.simulate(10000);
                             bitcoin.simulate(10000);
+
+                            crypto_1_value.text = ethereum.value_in_usd
+                            crypto_2_value.text = bitcoin.value_in_usd
 
                             final_sum_ethereum.text = qsTr("Suma finala = " + ethereum.final_sum)
                             final_sum_bitcoin.text = qsTr("Suma finala = " + bitcoin.final_sum)

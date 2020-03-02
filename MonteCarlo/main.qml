@@ -69,7 +69,7 @@ Window {
                     }
 
                     Rectangle {
-                        id: rectangle
+                        id: rectangle_inv
                         height: investment_label.height
                         color: "#00000000"
                         width: investment_label.width + 30
@@ -112,7 +112,7 @@ Window {
 
                     Image {
                         id: crypto_1_logo
-                        source: "./res/images/Ethereum_logo_2014.svg"
+                        source: "res/images/Ethereum_logo_2014.svg"
                         Layout.preferredHeight: 200
                         Layout.preferredWidth: 200
                         fillMode: Image.PreserveAspectFit
@@ -244,7 +244,7 @@ Window {
                         id: crypto_2_logo
                         Layout.fillWidth: false
                         Layout.fillHeight: false
-                        source: "./res/images/Bitcoin_logo.svg"
+                        source: "res/images/Bitcoin_logo.svg"
                         Layout.preferredHeight: 200
                         Layout.preferredWidth: 200
                         fillMode: Image.PreserveAspectFit

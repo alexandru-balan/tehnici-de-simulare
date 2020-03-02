@@ -73,11 +73,11 @@ void CryptoCoin::setInvestment(const double& inv) {
 /*
     Presupuneri:
     -> o moneda se poate aprecia sau deprecia
-    -> rata de apreciere este fixa la 4%
-    -> rata de depreciere este fixa la 6%
+    -> rata de apreciere este fixa la 2%
+    -> rata de depreciere este fixa la 2%
     -> probabilitatea de a se aprecia sau deprecia intr-o zi este data de mod_rate
     -> probabilitatea de apreciere este 50% initial
-    -> dupa fiecare apreciere probabilitatea de apreciere scade cu 3%
+    -> dupa fiecare apreciere probabilitatea de apreciere scade cu 4%
     -> dupa fiecare depreciere probabilitatea de apreciere creste cu 5%
     -> daca o moneda nu se schimba intr-o zi, probabilitatea de modificare creste cu 1%, dupa ce se modifica, scade cu 3%, dar niciodata sub mod_rate
     -> vom genera aleator numere reale intre 1-100 si o sa comparam cu probabilitatile descrise mai sus
@@ -104,12 +104,12 @@ void CryptoCoin::simulate(int number_of_days) {
             nr = distribution(engine);
 
             if (nr <= surge_prob) { // Atunci apreciem valoarea monedei
-                setValue_in_usd(_value_in_usd + (_value_in_usd * 0.04));
-                surge_prob -= 3;
-                plumet_prob += 3;
+                setValue_in_usd(_value_in_usd + (_value_in_usd * 0.02));
+                surge_prob -= 4;
+                plumet_prob += 4;
             }
             else { // Altfel depreciem moneda
-                setValue_in_usd(_value_in_usd - (_value_in_usd * 0.06));
+                setValue_in_usd(_value_in_usd - (_value_in_usd * 0.02));
                 surge_prob += 5;
                 plumet_prob -= 5;
             }

@@ -1,4 +1,5 @@
 QT += quick
+QT += svg
 
 CONFIG += c++11
 
@@ -34,5 +35,14 @@ HEADERS += \
     cryptocoin.h
 
 DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml \
     res/images/Bitcoin_logo.svg \
     res/images/Ethereum_logo_2014.svg
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

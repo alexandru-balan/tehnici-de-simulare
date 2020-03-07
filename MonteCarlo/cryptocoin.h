@@ -31,9 +31,10 @@ private:
 
     double _investment;
 
-    double surge_prob = 50;
-    double plumet_prob = 50;
+    double surge_prob = 15;
+    double plumet_prob = 75;
     double actual_mod_rate;
+
     double nr_of_coins = 0;
 
 public:
@@ -59,6 +60,8 @@ public:
     void setInvestment(const double& inv);
 
     Q_INVOKABLE void simulate(int number_of_days);
+    Q_INVOKABLE double getCoins();
+    Q_INVOKABLE void buyCoins();
 
 signals:
     void nameChanged();

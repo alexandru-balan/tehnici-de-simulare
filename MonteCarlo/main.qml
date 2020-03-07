@@ -90,6 +90,21 @@ Window {
                         Layout.alignment: Qt.AlignCenter
                     }
 
+                    Button {
+                        id: buy_coins
+                        text: qsTr("Buy coins")
+                        font.family: "DejaVu Sans"
+                        font.pointSize: 14
+
+                        onClicked: {
+                            ethereum.buyCoins()
+                            bitcoin.buyCoins()
+
+                            eth_coins_label.text = qsTr("Numarul de " + ethereum.abbreviation + " " + ethereum.getCoins())
+                            btc_coins_label.text = qsTr("Numarul de " + bitcoin.abbreviation + " " + bitcoin.getCoins())
+                        }
+                    }
+
                 }
             }
 
@@ -157,6 +172,21 @@ Window {
                         Layout.alignment: Qt.AlignCenter
                     }
 
+
+                }
+
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Label {
+                        id: eth_coins_label
+                        text: qsTr("Numarul de " + ethereum.abbreviation + " " + ethereum.getCoins())
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 18
+                    }
 
                 }
 
@@ -272,6 +302,22 @@ Window {
                             bitcoin.value_in_usd = crypto_2_value.text
                         }
                         Layout.alignment: Qt.AlignCenter
+                    }
+
+
+                }
+
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Label {
+                        id: btc_coins_label
+                        text: qsTr("Numarul de " + bitcoin.abbreviation + " " + bitcoin.getCoins())
+                        font.family: "DejaVu Sans Mono"
+                        font.italic: true
+                        font.pointSize: 18
                     }
 
 

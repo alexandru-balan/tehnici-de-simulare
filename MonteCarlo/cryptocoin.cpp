@@ -3,6 +3,7 @@
 CryptoCoin::CryptoCoin() : _name("Unknown"), _abbreviation("UNKW"), _value_in_usd(0.0), _mod_rate(0.0) {
     actual_mod_rate = _mod_rate;
     _investment = 1847.00; // valoare default
+    this->nr_of_coins = this->_investment / this->_value_in_usd;
 }
 
 CryptoCoin::~CryptoCoin(){
@@ -69,16 +70,24 @@ void CryptoCoin::setInvestment(const double& inv) {
     emit investmentChanged();
 }
 
+double CryptoCoin::getCoins() {
+    return this->nr_of_coins;
+}
+
+void CryptoCoin::buyCoins() {
+    this->nr_of_coins = this->_investment / this->_value_in_usd;
+}
+
 // Functia se va ocupa de simularea valorii monedei pe un interval de zile dat
 /*
     Presupuneri:
     -> o moneda se poate aprecia sau deprecia
-    -> rata de apreciere este fixa la 2%
-    -> rata de depreciere este fixa la 2%
+    -> rata de apreciere este fixa la 0.5%
+    -> rata de depreciere este fixa la 0.5%
     -> probabilitatea de a se aprecia sau deprecia intr-o zi este data de mod_rate
-    -> probabilitatea de apreciere este 50% initial
-    -> dupa fiecare apreciere probabilitatea de apreciere scade cu 4%
-    -> dupa fiecare depreciere probabilitatea de apreciere creste cu 5%
+    -> probabilitatea de apreciere este 15% initial
+    -> dupa fiecare apreciere probabilitatea de apreciere scade cu 2%
+    -> dupa fiecare depreciere probabilitatea de apreciere creste cu 2.05%
     -> daca o moneda nu se schimba intr-o zi, probabilitatea de modificare creste cu 1%, dupa ce se modifica, scade cu 3%, dar niciodata sub mod_rate
     -> vom genera aleator numere reale intre 1-100 si o sa comparam cu probabilitatile descrise mai sus
     -> scopul este ca la final sa vedem care dintre monedele noastre va fi cea mai profitabila pe o periada determinata de timp (pentru o investite)
@@ -90,7 +99,6 @@ void CryptoCoin::simulate(int number_of_days) {
     // Distributia de numere reale pentru care o sa folosim generatorul
     uniform_real_distribution<double> distribution(1.000,100.000);
 
-    this->nr_of_coins = _investment / this->_value_in_usd;
     // Rutina principala a simularii
     for (int i = 0; i < number_of_days; ++i) {
         // La inceputul simularii calculam numarul de monede echivalente cu investitia utilizatorului
@@ -104,14 +112,12 @@ void CryptoCoin::simulate(int number_of_days) {
             nr = distribution(engine);
 
             if (nr <= surge_prob) { // Atunci apreciem valoarea monedei
-                setValue_in_usd(_value_in_usd + (_value_in_usd * 0.02));
-                surge_prob -= 4;
-                plumet_prob += 4;
+                setValue_in_usd(_value_in_usd + (_value_in_usd * 0.005));
+                surge_prob -= 2;
             }
             else { // Altfel depreciem moneda
-                setValue_in_usd(_value_in_usd - (_value_in_usd * 0.02));
-                surge_prob += 5;
-                plumet_prob -= 5;
+                setValue_in_usd(_value_in_usd - (_value_in_usd * 0.005));
+                surge_prob += 2.03;
             }
 
             // Scadem probabilitatea de modificare pentru ziua de maine, dar avem grija sa nu fie sub valoarea mod_rate initiale

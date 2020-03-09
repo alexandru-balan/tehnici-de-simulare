@@ -31,8 +31,7 @@ Window {
 
     /*Interfata grafica a aplicatiei*/
 
-    // Coloana priniciala
-    ScrollView {
+    ScrollView { // Container ce permite scrolarea aplicatiei in cazul in care este redimensionata fereastra
         id: flickable
         width: main_column.width
         height: main_column.height
@@ -41,7 +40,7 @@ Window {
         ScrollBar.vertical.policy: ScrollBar.AsNeeded
         ScrollBar.horizontal.policy: ScrollBar.AsNeeded
 
-        ColumnLayout {
+        ColumnLayout { // Coloana principala in care sunt asezate elementele
             id: main_column
             width: Window.width
             height: Window.height
@@ -392,9 +391,11 @@ Window {
                         font.pointSize: 14
 
                         onClicked: {
+                            // Simularea pentru fiecare moneda in parte
                             ethereum.simulate(10000);
                             bitcoin.simulate(10000);
 
+                            /*Modificarea unor valori din interfata dupa simulare*/
                             crypto_1_value.text = ethereum.value_in_usd
                             crypto_2_value.text = bitcoin.value_in_usd
 

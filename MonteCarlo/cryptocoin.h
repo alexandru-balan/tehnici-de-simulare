@@ -9,8 +9,23 @@
 
 using namespace std;
 /*
-    CryptoCoint is an abstract class that serves as an interface for actual coins.
-This class will implement basic characteristics that are intrinsec to evey coin.
+ * Acest proiect isi propune sa creeze o aplicatie care, prin generarea numerelor in mod aleator,
+ * sa prezica ce investitie este cea mai buna dintre Ethereum si Bitcoin. Anumiti parametri sunt luati in considerare
+ * pentru realizarea acestei simulari si anume:
+ * - valoarea investitiei si pretul unei cripto-monede => determina cate monede va detine utilizatorul pe parcursul simularii. In functie de
+ *   fluctuatiile pretului aceste monede vor valora mai mult sau mai putin.
+ * - volatilitatea monedei (in program _mod_rate) determina cat de des se va schimba pretul unei cripto-monede.
+ * - alte probabilitati legate de crestere si cum se modifica volatilitatea se regasesc in fisierul cryptocoin.cpp alaturi de functia de simulare
+ *
+ * Aceasta aplicatie a fost realizata in limbajul C++ (partea de logica a aplicatiei) si QML (interfata aplicatiei) oferit de framework-up Qt
+ * Proiectul a fost compilat si testat pe un sistem de operare GNU/Linux folosind Qt 5.14.1, GCC 9.2.1 si mediul de dezvoltare Qt Creator
+ * Qt, GCC (prin mingw64) si Qt Creator sunt prezente si pentru sistemul de operare Windows.
+ *
+ *  Pentru a folosi aplicatia utilizatorul trebuie sa parcurga in ordine, urmatorii pasi:
+ * 1. Modifica parametrii din interfata pentru a se potrivii nevoilor sale
+ * 2. Apasa butonul pentru cumpararea cripto-monedelor (daca totul este in ordine, numarul de monede detinute se va modifica de la INFINITY la numarul actual calculat)
+ * 3. Daca doreste sa modifice alti parametrii pana la pornirea simularii atunci trebuie sa cumpere iar monedele pentru a modifica numarul acestora
+ * 4. Porneste simularea prin apasarea butonului din josul paginii.
 */
 class CryptoCoin : public QObject
 {
@@ -38,9 +53,14 @@ private:
     double nr_of_coins = 0;
 
 public:
-    CryptoCoin();
+    CryptoCoin(); //seteaza valori implicite atributelor criptomonedei
     ~CryptoCoin();
 
+    /*
+     * Urmatoarele functii sunt metode simple de tip get()/set()
+     * Fiecare functie de tip set() emite un semnal pentru a lasa interfata QML sa stie
+     * ca un anumit atribut a fost modificat.
+    */
     QString name();
     void setName(const QString& name);
 
@@ -59,6 +79,9 @@ public:
     double investment();
     void setInvestment(const double& inv);
 
+    /*
+     * Functiile sunt prefixate cu Q_INVOKABLE pentru a putea fi apelate de catre interfata scrisa in QML
+    */
     Q_INVOKABLE void simulate(int number_of_days);
     Q_INVOKABLE double getCoins();
     Q_INVOKABLE void buyCoins();
